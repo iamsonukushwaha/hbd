@@ -5,3 +5,9 @@ Simply fill out the following format in the **data.txt** file and submit a pull 
 ```
 <firstName>,<lastName>,<month>,<day>,<email>
 ```
+
+
+or Simply fill these form
+
+https://forms.gle/1nauUC9Gk3B9E28aA
+
