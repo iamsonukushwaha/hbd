@@ -1,11 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HBD</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday! </title>
+<style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      font-size: 48px;
+      color: #333;
+    }
+  </style>
 </head>
 <body>
-    <h1>Happy Birthday </h1>
+  <h1 id="typeHeading"></h1>
+
+  <script>
+    const heading = document.querySelector("#typeHeading");
+    const text = "Happy BirthDay to You!";
+    let index = 0;
+
+    function typeCharacter() {
+      if (index < text.length) {
+        // Add the current character to the heading
+        heading.textContent += text[index];
+        
+        // Move to the next character after a short delay
+        index++;
+        setTimeout(typeCharacter, 400);
+      }
+    }
+
+    
+    typeCharacter();
+  </script>
 </body>
 </html>
+
+
