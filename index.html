@@ -3,46 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday! </title>
-<style>
+  <title>Happy Birthday!</title>
+  <style>
     body {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0;
-      background-color: #f0f0f0;
-      font-family: Arial, sans-serif;
+      background-color: #ffefd5;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
     }
+
     h1 {
-      font-size: 48px;
-      color: #333;
+      font-size: 60px;
+      color: #ff1493;
+      text-shadow: 2px 2px #ffcc00;
+      text-align: center;
+    }
+
+    .balloon {
+      position: absolute;
+      width: 50px;
+      height: 70px;
+      background-color: #ff6347;
+      border-radius: 50% 50% 45% 45%;
+      box-shadow: inset -5px -5px rgba(0, 0, 0, 0.2);
+      animation: float 7s ease-in-out infinite;
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 20px;
+      background-color: #ff1493;
+      border-radius: 50%;
+      animation: confetti-fall 5s linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes confetti-fall {
+      0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
   <h1 id="typeHeading"></h1>
 
+  <!-- Background Music -->
+  <audio id="backgroundMusic" loop>
+    <source src="SoundHelix-Song-4.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
     const heading = document.querySelector("#typeHeading");
-    const text = "Happy BirthDay to You!";
+    const text = "Happy Birthday to You!";
     let index = 0;
 
+    // Typing effect function
     function typeCharacter() {
       if (index < text.length) {
-        // Add the current character to the heading
         heading.textContent += text[index];
-        
-        // Move to the next character after a short delay
         index++;
-        setTimeout(typeCharacter, 400);
+        setTimeout(typeCharacter, 150);
+      } else {
+        setTimeout(() => {
+          index = 0;
+          heading.textContent = "";
+          typeCharacter();
+        }, 2000);
       }
     }
 
-    
-    typeCharacter();
+    // Balloon creation function
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.classList.add('balloon');
+      balloon.style.left = `${Math.random() * 100}%`;
+      balloon.style.backgroundColor = getRandomColor();
+      document.body.appendChild(balloon);
+
+      setTimeout(() => {
+        balloon.remove();
+      }, 7000);
+    }
+
+    // Confetti creation function
+    function createConfetti() {
+      const confetti = document.createElement('div');
+      confetti.classList.add('confetti');
+      confetti.style.left = `${Math.random() * 100}%`;
+      confetti.style.backgroundColor = getRandomColor();
+      document.body.appendChild(confetti);
+
+      setTimeout(() => {
+        confetti.remove();
+      }, 5000);
+    }
+
+    // Function to release balloons
+    function releaseBalloons() {
+      setInterval(createBalloon, 500);
+    }
+
+    // Function to release confetti
+    function releaseConfetti() {
+      setInterval(createConfetti, 300);
+    }
+
+    // Function to get random colors
+    function getRandomColor() {
+      const colors = ['#ff1493', '#ffa500', '#32cd32', '#00ced1', '#ff69b4', '#ff4500', '#4682b4'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Start the celebration
+    function startCelebration() {
+      typeCharacter();
+      releaseBalloons();
+      releaseConfetti();
+    }
+
+    // Play music on user interaction
+    function playMusic() {
+      const music = document.getElementById('backgroundMusic');
+      music.play();
+      document.body.removeEventListener('click', playMusic);
+    }
+
+    // Start the celebration immediately
+    startCelebration();
+
+    // Wait for user interaction to play music
+    document.body.addEventListener('click', playMusic);
   </script>
 </body>
 </html>
-
-
